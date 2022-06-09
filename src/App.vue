@@ -37,8 +37,9 @@
           :currentVariant="currentVariant"
         />
       </div>
-
-      <router-view @openModal="openModal" :currentVariant="currentVariant" />
+      <Suspense>
+        <router-view @openModal="openModal" :currentVariant="currentVariant" />
+      </Suspense>
     </main>
   </div>
 

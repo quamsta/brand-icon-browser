@@ -4,11 +4,8 @@
 
 <script setup>
 import IconList from "@/components/IconList.vue";
-
-// import getCats from '../composables/getCats.js'
 import { ref, computed, onUpdated } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import iconsData from "/node_modules/uiowa-brand-icons/icons.json";
 
 const route = useRoute();
 
@@ -17,7 +14,9 @@ const props = defineProps({
   currentVariant: String,
 });
 
-const icons = ref(iconsData.icons);
+const res = await fetch("/icons.json");
+const iconData = await res.json();
+let icons = iconData.icons;
 
 function openModal(icon) {
   emit("openModal", icon);

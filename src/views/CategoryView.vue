@@ -1,5 +1,7 @@
 <template>
-  <IconList :icons="icons" :variant="currentVariant" @openModal="openModal" />
+  <Suspense>
+    <IconList :icons="icons" :variant="currentVariant" @openModal="openModal" />
+  </Suspense>
 </template>
 
 <script setup>
@@ -9,8 +11,6 @@ import IconList from "@/components/IconList.vue";
 // import getCats from '../composables/getCats.js'
 import { ref, computed, onUpdated } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import catData from "/node_modules/uiowa-brand-icons/categories.json";
-import iconsData from "/node_modules/uiowa-brand-icons/icons.json";
 
 const route = useRoute();
 const router = useRouter();
@@ -20,8 +20,13 @@ const emit = defineEmits(["openModal", "setCurrentSearchTerm"]);
 const props = defineProps({
   currentVariant: String,
 });
-
+const res = await fetch("/categories.json");
+const catData = await res.json();
 let categories = catData.categories;
+
+const iconResult = await fetch("/icons.json");
+const iconsData = await iconResult.json();
+
 let currentCategorySlug = route.params.category;
 
 // Build the filtered icon list based on category:
