@@ -251,7 +251,7 @@ function openModal(icon) {
   showModal.value = true;
   document.body.classList.add("modal-open");
   iconDetails.value = icon;
-  console.log('test');
+  console.log('testTESt');
 }
 
 function toggleVariantColor() {
